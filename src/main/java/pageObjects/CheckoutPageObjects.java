@@ -1,11 +1,10 @@
 package pageObjects;
 
-import static org.testng.Assert.assertTrue;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.xpath.XPath;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -81,6 +80,8 @@ public class CheckoutPageObjects extends Base{
 	WebElement orderDetailsBtn;
 	@FindBy(xpath = "//a[@class=\"button-2 print-order-button\"]")
 	WebElement printBtn;
+	@FindBy(xpath = "//div[@class=\"message-error validation-summary-errors\"]")
+	WebElement wrongCreditCard;
 	
 	
 	
@@ -112,6 +113,7 @@ public class CheckoutPageObjects extends Base{
 		
 	}
 	public void billdingAddress() {
+		cm.waitForElementToBeClickable(continueBtnToShippingMethod);
 		selectCountry("11");
 		cityField.sendKeys(td.city);
 		AddressField1.sendKeys(td.address);
@@ -171,6 +173,31 @@ public class CheckoutPageObjects extends Base{
 	public void continueToHomePageAfterAssertCheckout () {
 		conntinueBtnToHomePage.click();
 	}
+	public void validRandomCreditCart () {
+		  long min = 100000000000000000L;
+		  long max = 999999999999999999L;	  
+		  long random_int = (long)Math.floor(Math.random()*(max-min+1)+min);
+		  cardNumberFIeld.sendKeys(""+random_int);
+		  
+	}
+	public void paymentInfoVallidWithRandomCreditCard() throws InterruptedException {
+		cm.waitForElementToBeClickable(continueBtnToConfirmOrder);
+		cardHolderNameField.sendKeys(td.firstname);
+		validRandomCreditCart();
+		exparationMonth.click();
+		exparationYearValid.click();
+		cardCode.sendKeys(td.cardCode);
+		continueBtnToConfirmOrder.click();
+		cm.waitForElementToBeVisible(wrongCreditCard);
+		while (wrongCreditCard.isDisplayed())  {
+			  cardNumberFIeld.clear();
+			  validRandomCreditCart();
+			  continueBtnToConfirmOrder.click();
+			  Thread.sleep(1000);
+			 }
+		  
+	}
+	
 	public void assertThetUserIsONOrderInformationPage() {
 		String excRes = driver.findElement(By.xpath("(//div/strong)[1]")).getText();
 		Assert.assertTrue(excRes.contains("ORDER"));

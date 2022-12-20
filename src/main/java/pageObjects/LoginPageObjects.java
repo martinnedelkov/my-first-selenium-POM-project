@@ -1,6 +1,6 @@
 package pageObjects;
 
-import java.awt.Window;
+
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;

@@ -28,13 +28,13 @@ public class register extends Base {
 			Thread.sleep(4000);
 			driver.quit();
 		}
-	 @org.testng.annotations.Test
+	 @Test
 	 public void registerWithMandatoryFields () {
 		 hp.navigateToRegisterPage();
 		 rp.registerMandatroyFields(td.firstname, td.lastname, td.validEmail, td.validPassword, td.validPassword);
 		 rp.verifyThatUserIsRegister();
 	 }
-	 @org.testng.annotations.Test
+	 @Test
 	 public void registerAllFieldsAndDifferentPasswordAndConfrimPassword () {
 		 hp.navigateToRegisterPage();
 		 rp.registerWithFullFields(td.firstname, td.lastname, td.inValidEmail, td.companyName, td.validPassword, td.inValidPassword);
