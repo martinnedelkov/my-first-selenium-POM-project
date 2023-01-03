@@ -15,7 +15,10 @@ import TestData.Testdata;
 
 public class RegisterPageObjects extends Base{
 	
+	
 	Testdata td = new Testdata();
+	LoginPageObjects lp = new LoginPageObjects();
+	
 	
 	@FindBy(xpath = "//span[@class=\"male\"]/input[1]")
 	WebElement maleGender;
@@ -43,22 +46,38 @@ public class RegisterPageObjects extends Base{
 	WebElement companyNameField;
 	@FindBy(xpath = "//input[@type=\"checkbox\"]")
 	WebElement newsletter;
+	@FindBy(xpath = "//a[@href=\"/login?returnUrl=%2F\"]")
+	WebElement loginIcon;
+	@FindBy(xpath = "//a[@href=\"/logout\"]")
+	WebElement logoutIcon;
 	
 	public RegisterPageObjects () {
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void registerMandatroyFields (String name,String lastname,String email,String password, String confirmpassword) {
-		firstnameField.sendKeys(name);
+	// user should be registered with only mandatory fields 
+	//check if the user is logged in automatically, if not logged in automatically then log them in
+	public void registerMandatroyFieldsAndLoginUser (String name,String lastname,String email,String password, String confirmpassword) {
+		firstnameField.sendKeys(name);			
 		lastnameField.sendKeys(lastname);
 		emailField.sendKeys(email);
 		passwordField.sendKeys(password);
 		confirmpasswordField.sendKeys(confirmpassword);
 		registerBtn.click();
+		verifyThatUserIsRegister();
+		if (loginIcon.isDisplayed()) {
+			loginIcon.click();
+			lp.loginUser(email, password);
+			lp.verifyUserIsLogin();
+		}else {
+			System.out.println("User is automatically login");
+		}
 		
 	}
+
+	// user should be registered with populate all fields
 	
-	public void registerWithFullFields (String name,String lastname,String email,String password, String confirmpassword, String companyName) {
+	public void registerWithFullFieldsAndLogin (String name,String lastname,String email,String password, String confirmpassword, String companyName) {
 		firstnameField.sendKeys(name);
 		lastnameField.sendKeys(lastname);
 		emailField.sendKeys(email);
@@ -71,27 +90,45 @@ public class RegisterPageObjects extends Base{
 		yearOfB.click();
 		newsletter.click();
 		registerBtn.click();
+	
 		
 	}
+	// method for random email
 	public void randomEmail() {
 		Random randomEmail = new Random ();
 		int randomInt = randomEmail.nextInt(100);
-		emailField.sendKeys("kocan"+randomInt+"@fabrika.com");
+		emailField.sendKeys("dimitar"+randomInt+"@test.com");
 	}
-	public void registerMandatroyFieldsWithRandomEmail (String name,String lastname,String password, String confirmpassword) {
+
+	// user should be registered with only mandatory fields and email should be random
+	//check if the user is logged in automatically, if not logged in automatically then log them in
+	public void registerMandatroyFieldsWithRandomEmailAndLogin (String name,String lastname,String password, String confirmpassword)  {
 		firstnameField.sendKeys(name);
 		lastnameField.sendKeys(lastname);
 		randomEmail();
+		String text = emailField.getAttribute("value");
 		passwordField.sendKeys(password);
 		confirmpasswordField.sendKeys(confirmpassword);
 		registerBtn.click();
-	}
+		verifyThatUserIsRegister();
+		if (loginIcon.isDisplayed()) {
+			loginIcon.click();
+			lp.loginUser(text, td.validPassword);
+			
+		
+		} else {
+			System.out.println("User is automatically login");
+		}
+		
 	
+		
+	}
+	// verify that user is registed
 	public void verifyThatUserIsRegister() {
 		String message = driver.findElement(By.xpath("//div/div[@class=\"result\"]")).getText();
 		Assert.assertTrue(message.contains("Your registration completed"));
 	}
-	
+	// verify that user is not registed
 	public void verifyThatUserIsNotRegister() {
 		Assert.assertEquals(driver.getTitle(), td.registerpage);
 	}

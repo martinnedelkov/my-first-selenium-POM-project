@@ -4,16 +4,20 @@ public class Testdata {
 	//Users
 			public String validEmail = "asd@asd.com";
 			public String validPassword = "123456";
-			public String firstname = "asd";
-			public String lastname = "asd";
+			public String firstname = "James";
+			public String lastname = "Bond";
 			public String inValidEmail = "asdddd@asddd.com";
 			public String inValidPassword = "djkfsd,fnds";
+			public String friendEmail = "jovan4e@blagadusha.com";
 			public String companyName = "kokoska";
 			public String searchNIKE = "NIKE".toLowerCase();
 			public String address = "KucaPoso";
 			public String city = "Bitolalala";
 			public String zipCode = "7000";
 			public String phone = "223305";
+			public String validEmail2 = "ronaldo7@messi.com";
+			public String validEmail3 = "kire@bananamen.com";
+			public String validEmail4 = "aca@lukas.com";
 			
 			
 			

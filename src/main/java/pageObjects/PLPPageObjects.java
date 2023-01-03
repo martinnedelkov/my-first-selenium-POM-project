@@ -10,7 +10,8 @@ import Base.Base;
 
 public class PLPPageObjects extends Base{
 	
-	CommonObjects cm; 
+	
+	CommonObjects cm = new CommonObjects();
 	
 	@FindBy(xpath = "(//a[@href=\"/desktops\"])[5]")
 	WebElement desktopsBtn;
@@ -72,11 +73,11 @@ public class PLPPageObjects extends Base{
 	WebElement assusLaptopAddToWishlist;
 	@FindBy(xpath = "(//a[@href=\"/hp-envy-6-1180ca-156-inch-sleekbook\"])[2]")
 	WebElement hpEnvyLaptop;
-	@FindBy(xpath = "(//button[@type=\"button\"])[7]")
-	WebElement hpEnvyLaptopAddToCart;
 	@FindBy(xpath = "(//button[@type=\"button\"])[8]")
-	WebElement hpEnvyLaptopAddToComparateList;
+	WebElement hpEnvyLaptopAddToCart;
 	@FindBy(xpath = "(//button[@type=\"button\"])[9]")
+	WebElement hpEnvyLaptopAddToComparateList;
+	@FindBy(xpath = "(//button[@type=\"button\"])[10]")
 	WebElement hpEnvyLaptopAddToWishlist;
 	@FindBy(xpath = "(//a[@href=\"/hp-spectre-xt-pro-ultrabook\"])[2]")
 	WebElement hpSpectreLaptop;
@@ -96,11 +97,11 @@ public class PLPPageObjects extends Base{
 	WebElement lenovoLaptopAddToWishlist;
 	@FindBy(xpath = "(//a[@href=\"/samsung-series-9-np900x4c-premium-ultrabook\"])[2]")
 	WebElement samsungLaptop;
-	@FindBy(xpath = "(//button[@type=\"button\"])[16]")
-	WebElement samsungLaptopAddToCart;
 	@FindBy(xpath = "(//button[@type=\"button\"])[17]")
-	WebElement samsungLaptopAddToComparateList;
+	WebElement samsungLaptopAddToCart;
 	@FindBy(xpath = "(//button[@type=\"button\"])[18]")
+	WebElement samsungLaptopAddToComparateList;
+	@FindBy(xpath = "(//button[@type=\"button\"])[19]")
 	WebElement samsungLaptopAddToWishlist;
 	@FindBy(xpath = "(//a[@href=\"/adobe-photoshop-cs4\"])[2]")
 	WebElement abodeSoftware;
@@ -253,7 +254,7 @@ public class PLPPageObjects extends Base{
 	
 	@FindBy(xpath = "(//a[@href=\"/fahrenheit-451-by-ray-bradbury\"])[2]]")
 	WebElement fahrenheitBook;
-	@FindBy(xpath = "(//button[@type=\"button\"])[1]")
+	@FindBy(xpath = "(//button[@class=\"button-2 product-box-add-to-cart-button\"])[1]")
 	WebElement fahrenheitBookAddToCart;
 	@FindBy(xpath = "(//button[@type=\"button\"])[2]")
 	WebElement fahrenheitBookAddToComparateList;
@@ -275,7 +276,7 @@ public class PLPPageObjects extends Base{
 	WebElement prideAndPrejudiceBookAddToCart;
 	@FindBy(xpath = "(//button[@type=\"button\"])[8]")
 	WebElement prideAndPrejudiceBookAddToComparateList;
-	@FindBy(xpath = "(//button[@type=\"button\"])[9]")
+	@FindBy(xpath = "(//button[@class=\"button-2 add-to-wishlist-button\"])[3]")
 	WebElement prideAndPrejudiceBookAddToWishlist;
 	
 	@FindBy(xpath = "(//a[@href=\"/elegant-gemstone-necklace-rental\"])[2]")
@@ -369,6 +370,15 @@ public class PLPPageObjects extends Base{
 	WebElement memory16GBFillterBy;
 	@FindBy(xpath = "//div[@class='pager']/ul/li[@class='individual-page']")
 	WebElement list2page;
+	@FindBy(xpath = "(//a[@href=\"/compareproducts\"])[1]")
+	WebElement compareListGreenMessage;
+	@FindBy(xpath = "//span[@class=\"close\"]")
+	WebElement closeCompareListGreenMessage;
+	@FindBy(xpath = "//button[@class=\"button-2 remove-button\"]")
+	WebElement removeBtninCompareListpage;
+	@FindBy(xpath = "//div/p[@class=\"content\"]")
+	WebElement productIsAddedToWishlist;
+	
 	
 	
 	
@@ -376,12 +386,12 @@ public class PLPPageObjects extends Base{
 		PageFactory.initElements(driver, this);
 	}
 	//TC_4
-	public void verifyTheSortingAndDisplaying () throws InterruptedException {
+	public void sortingDisplayingViewList ()  {
 		notebooksBtn.click();
 		sortByHighToLow.click();
 		display3.click();
 		viewList.click();
-		Thread.sleep(3000);
+		cm.waitForElementToBeVisible(list2page);
 		list2page.click();
 		
 	}
@@ -391,10 +401,17 @@ public class PLPPageObjects extends Base{
 		hpEnvyLaptop.click();
 		
 	}
-	//TC_7
-	public void verifyAddToWishlist () {
-		firstPrizeBookAddToWishlist.click();
+	//TC_9
+	public void compareHTConeMiniAndNokiaLumia() throws InterruptedException {
+		hhtcOneMiniPhoneAddToComparateList.click();
+		cm.waitForElementToBeVisible(closeCompareListGreenMessage);
+		closeCompareListGreenMessage.click();
+		cm.theardSleepInSeconds(1);
+		nokiaLumiaPhoneAddToComparateList.click();
+		cm.waitForElementToBeVisible(closeCompareListGreenMessage);
+		compareListGreenMessage.click();
 	}
+
 	
 	//asserts
 	
@@ -407,46 +424,92 @@ public class PLPPageObjects extends Base{
 		String extRes = driver.findElement(By.xpath("//h1")).getText();
 		Assert.assertTrue(extRes.contains("HP Envy 6-1180ca 15.6-Inch Sleekbook"));
 	 }
-	 public void verifyFirstPrizewishlist () throws InterruptedException {
-		 Thread.sleep(2000);
-		String message = driver.findElement(By.xpath("//div/p[@class=\"content\"]")).getText();
+	 public void verifyFirstPrizeIsAddedwishlist ()  {
+		cm.waitForElementToBeVisible(productIsAddedToWishlist);
+		String message = productIsAddedToWishlist.getText();
 		String excRes = "The product has been added to your wishlist";
 		Assert.assertEquals(message, excRes);
 	 }
-	 
+	 public void verifyThatProductsAreAddedComparePage () {
+		 String nameOFproduct = driver.findElement(By.xpath("//tr[@class=\"product-name\"]")).getText();
+		 Assert.assertTrue(nameOFproduct.contains("HTC One Mini Blue"));
+		 Assert.assertTrue(nameOFproduct.contains("Nokia Lumia 1020"));
+	 }
+	 public void removeProductFromComparePage () {
+			int size = driver.findElements(By.xpath("//a[@class=\"picture\"]")).size();
+			for(int i = 1; i < size + 1; i++) {
+				removeBtninCompareListpage.click();
+			}
+	 }
 	 //For PDP
-	public void navigateToCameraAndleica () {
-		cameraPhotoBtn.click();
+	 // navigate to Leica T Mirroles Camera PDP
+	public void navigateToLeicaTMirrolesCamera () {
 		leicaTCamera.click();
 		
 	}
+	// navigate to Nokia Lumia PDP
 	public void navigateToNokiaLumiaPDP() {
 		nokiaLumiaPhone.click();
 	}
-	
+	//navigate to Pride and Prejudice PDP
 	public void navigateToPrideAndPrejudice() {
 		prideAndPrejudiceBook.click();
 	}
+	//navigate to HP Spectre XT Pro UltraBook PDP
 	public void navigateToHPSpectreXTPDP() {
 		hpSpectreLaptop.click();
 	}
-	
-	//For Wishlist
-	
-	public void addToWishlistFirstPrizeBook() {
-		firstPrizeBookAddToWishlist.click();
+	//navigate to Elegant Gemstone Necklace PDP
+	public void navigateToElegantGemstoneNecklacePDP () {
+		elegantJewelry.click();
 	}
-	// vezba od chasot
-	public void navigateToNikeTailWingPDP() {
-		nikeTShirt.click();
-	}
+	// navigate to Levis 511 Jeans PDP
 	public void navigateToLevis511PDP() {
 		levis511Jeans.click();
 	}
+	//navigate to Night Visions
+	public void navigateToNightVisionsPDP () {
+		nightVisionsMovie.click();
+	}
+	//navigate to Asus N551
+	public void navigateToAsusN551PDP() {
+		assusLaptop.click();
+	}
+	// vezba od chasot
+	// navigate to Nike Tailwind Loose Short PDP
+		public void navigateToNikeTailWingPDP() {
+			nikeTShirt.click();
+		}
+	
+
+	
+	//For Wishlist
+	// add to Wishlist First Prize Book 
+	// and for 	TC7 plp
+	public void addToWishlistFirstPrizeBook() {
+		firstPrizeBookAddToWishlist.click();
+	}
+	//add to wishlist Pride and Prejudice
+	public void addToWiShlistPrideAndPrejudice() {
+		prideAndPrejudiceBookAddToWishlist.click();
+	}
+	
+	// add to card Leica T Mirrorless Digital Camera
 	public void leicaTAddToCard() {
 		leicaTCameraAddToCart.click();
 	}
-	
+	// add to card HP envy
+	public void HPEnvyAddToCard() {
+		hpEnvyLaptopAddToCart.click();
+	}
+	// add to card samsung series 9
+	public void samsungSeries9AddToCard() {
+		samsungLaptopAddToCart.click();
+	}
+	// add to card Fahrenhiet 451
+	public void addToCartFahrenheit451Book() {
+		fahrenheitBookAddToCart.click();
+	}
 
 		
 }

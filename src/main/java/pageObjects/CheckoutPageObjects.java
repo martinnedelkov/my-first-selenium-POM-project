@@ -80,6 +80,8 @@ public class CheckoutPageObjects extends Base{
 	WebElement orderDetailsBtn;
 	@FindBy(xpath = "//a[@class=\"button-2 print-order-button\"]")
 	WebElement printBtn;
+	@FindBy(xpath = "//a[@class=\"button-2 pdf-invoice-button\"]")
+	WebElement PdfInvoiceBtn;
 	@FindBy(xpath = "//div[@class=\"message-error validation-summary-errors\"]")
 	WebElement wrongCreditCard;
 	
@@ -157,6 +159,9 @@ public class CheckoutPageObjects extends Base{
 	}
 	public void navigateToNewTabToPrintDocument() {
 		printBtn.click();
+	}
+	public void downloadPdfInvoice () {
+		PdfInvoiceBtn.click();
 	}
 	public void closeNewTabForPrintAndNavigateToFirstTab () {
 		List<String> browserTabs = new ArrayList<String> (driver.getWindowHandles());

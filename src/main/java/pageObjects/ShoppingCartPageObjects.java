@@ -2,6 +2,8 @@ package pageObjects;
 
 
 
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +13,8 @@ import org.testng.Assert;
 import Base.Base;
 
 public class ShoppingCartPageObjects extends Base {
+	
+	CommonObjects cm = new CommonObjects();
 	
 	@FindBy(xpath = "(//input[@type=\"text\"])[2]")
 	WebElement quantityFieldShoppingCart;
@@ -54,6 +58,18 @@ public class ShoppingCartPageObjects extends Base {
 	@FindBy (xpath = "//span[@class=\"sku-number\"]")
 	WebElement hpSpectrexTSku;
 	
+	@FindBy(xpath = "//div[@tabindex=\"-1\"]")
+	WebElement errorMsgForTermsAndService;
+	
+	@FindBy(xpath = "//span[@class=\"sku-number\"]")
+	WebElement SkuForOneProductSC;
+	@FindBy(xpath = "(//span[@class=\"sku-number\"])[1]")
+	WebElement SkuFromfirstProductInTable;
+	@FindBy(xpath = "(//span[@class=\"sku-number\"])[2]")
+	WebElement SkuFromSecondProductInTable;
+	@FindBy(xpath = "(//span[@class=\"sku-number\"])[3]")
+	WebElement SkuFromThirdProductInTable;
+	
 	public ShoppingCartPageObjects () {
 		PageFactory.initElements(driver, this);
 	}
@@ -90,6 +106,30 @@ public class ShoppingCartPageObjects extends Base {
 	public String hpSpectreSkuSC() {
 		return hpSpectrexTSku.getText();
 	}
+	public String skuForOnlyOneProductInSC() {
+		return SkuForOneProductSC.getText();
+	}
+	public String SkuFromfirstProductInTableSC () {
+		return SkuFromfirstProductInTable.getText();
+	}
+	public String SkuFromSecondProductInTableSC () {
+		return SkuFromSecondProductInTable.getText();
+	}
+	public String SkuFromThirdProductInTableSC () {
+		return SkuFromThirdProductInTable.getText();
+	}
+	// remove all products from shopping cart
+	public void removeAllProductsFromShoppingCart() {
+		
+			int size = driver.findElements(By.xpath("//tr/td[@class=\"sku\"]")).size();
+			for(int i = 1; i < size + 1; i++) {
+				removeBtnShoppingCart.click();
+			}
+	}
+	// only pressed on checkout button
+	public void onlyPressedOnCheckoutButton() {
+		checkOutBtn.click();
+	}
 	// levis511Asserts
 	
 	 public void levis511checkIfThePriceChangesAccordingtheDiscount3() {
@@ -114,5 +154,13 @@ public class ShoppingCartPageObjects extends Base {
 			}
 	 }
 	 
-
+	 // verify that user cant checkout without select terms and service
+	 public void verifyThatUserCantCheckoutWithoutSelectTermsAndService () {
+		 String excRes = errorMsgForTermsAndService.getText();
+		 Assert.assertTrue(excRes.contains("Please accept the terms of service before the next step."));
+	 }
+	 //taking a screenshot form error message for terms and service
+	 public void takingAScreenShotFromTermsErrorMsg () throws IOException {
+		cm.takingAscreenShot(errorMsgForTermsAndService, "terms and service error message");
+	 }
 }

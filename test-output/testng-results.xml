@@ -1,25 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="2" total="3" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="4" passed="3" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-12-20T19:36:28 CET" name="Default suite" finished-at="2022-12-20T19:36:44 CET" duration-ms="16665">
+  <suite started-at="2023-01-03T03:12:05 CET" name="Default suite" finished-at="2023-01-03T03:12:42 CET" duration-ms="37250">
     <groups>
     </groups>
-    <test started-at="2022-12-20T19:36:28 CET" name="Default test" finished-at="2022-12-20T19:36:44 CET" duration-ms="16665">
-      <class name="testCases.EndToEnd">
-        <test-method is-config="true" signature="start()[pri:0, instance:testCases.EndToEnd@6a84a97d]" started-at="2022-12-20T19:36:28 CET" name="start" finished-at="2022-12-20T19:36:31 CET" duration-ms="2816" status="PASS">
+    <test started-at="2023-01-03T03:12:05 CET" name="Default test" finished-at="2023-01-03T03:12:42 CET" duration-ms="37250">
+      <class name="testCases.ShoppingCart">
+        <test-method is-config="true" signature="start()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:05 CET" name="start" finished-at="2023-01-03T03:12:08 CET" duration-ms="2626" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- start -->
-        <test-method signature="searchProdoctChekOutLikeAQuest()[pri:0, instance:testCases.EndToEnd@6a84a97d]" started-at="2022-12-20T19:36:31 CET" name="searchProdoctChekOutLikeAQuest" finished-at="2022-12-20T19:36:44 CET" duration-ms="13692" status="PASS">
+        <test-method signature="checkIfThePriceChangesAccordingtheDiscountGivenForProducts()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:08 CET" name="checkIfThePriceChangesAccordingtheDiscountGivenForProducts" finished-at="2023-01-03T03:12:12 CET" duration-ms="3863" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[no such element: Unable to locate element: {"method":"xpath","selector":"//span[@class="product-unit-price"]"}
+  (Session info: chrome=108.0.5359.125)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'LAPTOP-V1I6KK26', ip: '192.168.0.19', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.4.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 108.0.5359.125, chrome: {chromedriverVersion: 108.0.5359.71 (1e0e3868ee06..., userDataDir: C:\Users\marti\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:58353}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 8812a4b49d3ac5ab8a1bfc772d71df2e
+*** Element info: {Using=xpath, value=//span[@class="product-unit-price"]}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//span[@class="product-unit-price"]"}
+  (Session info: chrome=108.0.5359.125)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'LAPTOP-V1I6KK26', ip: '192.168.0.19', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.4.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 108.0.5359.125, chrome: {chromedriverVersion: 108.0.5359.71 (1e0e3868ee06..., userDataDir: C:\Users\marti\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:58353}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 8812a4b49d3ac5ab8a1bfc772d71df2e
+*** Element info: {Using=xpath, value=//span[@class="product-unit-price"]}
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
+at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+at pageObjects.ShoppingCartPageObjects.levis511checkIfThePriceChangesAccordingtheDiscount3(ShoppingCartPageObjects.java:136)
+at testCases.ShoppingCart.checkIfThePriceChangesAccordingtheDiscountGivenForProducts(ShoppingCart.java:63)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:794)
+at org.testng.TestRunner.run(TestRunner.java:596)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
+at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+at org.testng.TestNG.runSuites(TestNG.java:1063)
+at org.testng.TestNG.run(TestNG.java:1031)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- searchProdoctChekOutLikeAQuest -->
-        <test-method is-config="true" signature="exit()[pri:0, instance:testCases.EndToEnd@6a84a97d]" started-at="2022-12-20T19:36:44 CET" name="exit" finished-at="2022-12-20T19:36:44 CET" duration-ms="131" status="PASS">
+        </test-method> <!-- checkIfThePriceChangesAccordingtheDiscountGivenForProducts -->
+        <test-method is-config="true" signature="end()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:12 CET" name="end" finished-at="2023-01-03T03:12:16 CET" duration-ms="4165" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- exit -->
-      </class> <!-- testCases.EndToEnd -->
+        </test-method> <!-- end -->
+        <test-method is-config="true" signature="start()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:16 CET" name="start" finished-at="2023-01-03T03:12:17 CET" duration-ms="1444" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- start -->
+        <test-method signature="checkoutWithoutSelectedTermsAndService()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:17 CET" name="checkoutWithoutSelectedTermsAndService" finished-at="2023-01-03T03:12:20 CET" duration-ms="2278" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkoutWithoutSelectedTermsAndService -->
+        <test-method is-config="true" signature="end()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:20 CET" name="end" finished-at="2023-01-03T03:12:24 CET" duration-ms="4165" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- end -->
+        <test-method is-config="true" signature="start()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:24 CET" name="start" finished-at="2023-01-03T03:12:26 CET" duration-ms="1943" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- start -->
+        <test-method signature="removeFromShoppingCartAllProducts()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:26 CET" name="removeFromShoppingCartAllProducts" finished-at="2023-01-03T03:12:30 CET" duration-ms="3903" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- removeFromShoppingCartAllProducts -->
+        <test-method is-config="true" signature="end()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:30 CET" name="end" finished-at="2023-01-03T03:12:34 CET" duration-ms="4150" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- end -->
+        <test-method is-config="true" signature="start()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:34 CET" name="start" finished-at="2023-01-03T03:12:35 CET" duration-ms="1813" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- start -->
+        <test-method signature="vezbaodcashot()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:35 CET" name="vezbaodcashot" finished-at="2023-01-03T03:12:38 CET" duration-ms="2718" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- vezbaodcashot -->
+        <test-method is-config="true" signature="end()[pri:0, instance:testCases.ShoppingCart@550ee7e5]" started-at="2023-01-03T03:12:38 CET" name="end" finished-at="2023-01-03T03:12:42 CET" duration-ms="4152" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- end -->
+      </class> <!-- testCases.ShoppingCart -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -12,6 +12,7 @@ import Base.Base;
 
 public class WishlistPageObjects extends Base {
 	
+	CommonObjects cm = new CommonObjects();
 	@FindBy(xpath = "(//input[@type=\"checkbox\"])[1]")
 	WebElement checkBoxAddToCard;
 	@FindBy(xpath = "//button[@id=\"updatecart\"]")
@@ -23,21 +24,55 @@ public class WishlistPageObjects extends Base {
 	@FindBy(xpath = "//button[@class=\"remove-btn\"]")
 	WebElement removeWishlist;
 	@FindBy(xpath = "//button[@class=\"button-2 email-a-friend-wishlist-button\"]")
-	WebElement emailWishlist;
+	WebElement emailAFriendBtnWishlist;
+	@FindBy(xpath = "//input[@class=\"friend-email\"]")
+	WebElement friendEmailField;
+	@FindBy(xpath = "//input[@class=\"your-email\"]")
+	WebElement yourEmailField;
+	@FindBy(xpath = "//textarea[@id=\"PersonalMessage\"]")
+	WebElement personalMsgField;
+	@FindBy(xpath = "//button[@name=\"send-email\"]")
+	WebElement sendEmailBtn;
+	@FindBy(xpath = "//td[@class=\"sku\"]")
+	WebElement skuInTableWihsist;
+	@FindBy(xpath = "//span[@class=\"sku-number\"]")
+	WebElement skuFromShoppingCart;
+	
+	
+	
 	
 	public WishlistPageObjects() {
 		PageFactory.initElements(driver, this);
 	}
-	public void checkAddProductToCartFromWishlist() {
+	public void addProductToCartFromWishlist() {
 		checkBoxAddToCard.click();
 		addToCartWishlist.click();
 	}
+	public String getSkuWishlist () {
+		return skuInTableWihsist.getText();
+	}
+	public String getSkuFromShoppingCart() {
+		return skuFromShoppingCart.getText();
+	}
 	
-	public void checkThePrice() throws InterruptedException {
+	public void changeTheQuantityField()  {
 		quantityWishlist.clear();
 		quantityWishlist.sendKeys("5");
 		updateWishlist.click();
-		Thread.sleep(5000);
+	}
+	
+	public void emailAFriendFromWishlist (String friendEmail , String PersonalMsg) {
+		emailAFriendBtnWishlist.click();
+		friendEmailField.sendKeys(friendEmail);
+		personalMsgField.sendKeys(PersonalMsg);
+		sendEmailBtn.click();
+	}
+	
+	public void removeProductFromWishlist () {
+		int size = driver.findElements(By.xpath("//tr/td[@class=\"sku\"]")).size();
+		for(int i = 1; i < size + 1; i++) {
+			removeWishlist.click();
+		}
 	}
 	
 	public void checkAddProductToCartFromWishlistAssert() {

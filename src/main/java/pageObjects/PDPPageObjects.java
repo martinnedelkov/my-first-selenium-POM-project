@@ -2,11 +2,17 @@ package pageObjects;
 
 import static org.testng.Assert.assertTrue;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import java.util.List;
+
 import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
+import org.testng.Assert;
 
 import Base.Base;
 
@@ -76,21 +82,47 @@ public class PDPPageObjects extends Base {
 		@FindBy(xpath = "//span[@id=\"sku-7\"]")
 		WebElement hpSpecteSKU;
 		
+		@FindBy(xpath = "//span[@class=\"value\"]")
+		WebElement skuFromPDP;
+		
+		
+		@FindBy(xpath = "//div/a[@title=\"Facebook\"]")
+		WebElement shareToFacebookIcon;
+		
+		@FindBy(xpath = "//input[@id=\"rental_start_date_40\"]")
+		WebElement startDateForRentAElegantGemstoneJewelry;
+		@FindBy(xpath = "//input[@id=\"rental_end_date_40\"]")
+		WebElement endDateOFRentAElegantGemstoneJewelry;
+		@FindBy(xpath = "//a[@class=\"ui-datepicker-next ui-corner-all\"]")
+		WebElement monthNextBtnCalender;
+		@FindBy(xpath = "//a[@class=\"ui-state-default\"]")
+		WebElement DateInCalendar;
+		@FindBy (xpath = "//span[@class=\"ui-datepicker-year\"]")
+		WebElement yearInCalendar;
+		@FindBy(xpath = "//span[@class=\"ui-datepicker-month\"]")
+		WebElement monthInCalendar;
+		
+		@FindBy(xpath = "//a[@class=\"button-2 download-sample-button\"]")
+		WebElement downloadSampleBTN;
 		
 		public PDPPageObjects () {
 			PageFactory.initElements(driver, this);
 		}
 		//TC_2
-		public void productReview () {
+		//navigate to LeicaTMirroles Camera Review page
+		public void navigateToLeicaTMirrolessReviewPage () {
 			leicaTMirrorlessReviewBtn.click();
 		}
+		
 		//TC_5
-		public void checkShareProductFunctionality(String emailFriend, String PersonalMessage) {
+		//navigate to Pride and Prejudice Email a Friend , write a email and message and send a email
+		public void navigateToPrideAndPrejudiceEmailAFriendWriteAemailMessageAndSendEmail(String emailFriend, String PersonalMessage) {
 			firstPrizeEmailAFriendPLP.click();
 			friendsEmailField.sendKeys(emailFriend);
 			personalMessageField.sendKeys(PersonalMessage);
 			sendEmailBtn.click();
 		}
+		
 		// vezba od chasot
 		public String nikeTaildWindSkuPDP() {
 			return SkuNikeTailwind.getText();
@@ -119,17 +151,53 @@ public class PDPPageObjects extends Base {
 		public String hpSpectreXtSKUPDP() {
 			return hpSpecteSKU.getText();
 		}
+		public String skuFromPDP() {
+			return skuFromPDP.getText();
+		}
+		//TC13
+		public void downloadSample() {
+			downloadSampleBTN.click();
+		}
+		//TC11
+		public void shareOnFB() {
+			cm.waitForElementToBeVisible(shareToFacebookIcon);
+			shareToFacebookIcon.click();
+		}
 		
 		//assert
-		public void productReviewAssertv() {
+		// verify that user cannot write a Reviews if user is not registered and login
+		public void verifyUserCannotWriteReviewsIfNotLogin() {
 			String excRes = driver.findElement(By.xpath("//form/div/ul/li")).getText();
 			assertTrue(excRes.contains("Only registered users can write reviews"));
 			
 		}
-		public void checkShareProductAssert () {
+		// verify that user sent a email to friend
+		public void verifyThatUserSentAEmailToFriend () {
 			String actRes = driver.findElement(By.xpath("//div[@class=\"result\"]")).getText();
 			assertTrue(actRes.contains("Your message has been sent."));
 		}
+		// verify that file is downloaded
+		public void verifyThatFileIsDownloaded () {
+			File fileLocation = new File ("C:\\Users\\marti\\Downloads");
+			File [] totalfiles = fileLocation.listFiles();
+			for (File file : totalfiles) {
+				if(file.getName().equals("Night_Vision_1.txt")) {
+					Assert.assertEquals(file.getName(), "Night_Vision_1.txt");
+					System.out.print("File is downloaded");
+					break;
+				}
+			}
+		}
+		// verify that new tab is open and close it
+		public void verifyThatNewWindowTabIsOpenAndCloseIt() {
+			    	List<String> browserTabs = new ArrayList<String> (driver.getWindowHandles());
+			    	driver.switchTo().window(browserTabs .get(1));
+			    	Assert.assertTrue(driver.getCurrentUrl().contains("facebook"));
+			    	driver.close();
+			    	driver.switchTo().window(browserTabs.get(0));
+			    	Assert.assertEquals(driver.getCurrentUrl(), "https://demo.nopcommerce.com/asus-n551jk-xo076h-laptop");
+			    }
+		
 	
 	
 	

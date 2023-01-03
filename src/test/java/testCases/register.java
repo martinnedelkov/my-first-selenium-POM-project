@@ -28,22 +28,36 @@ public class register extends Base {
 			Thread.sleep(4000);
 			driver.quit();
 		}
+	 
+	// user is successful registered with populate only  mandatory fields ( assert is inside in the rp.registerMandatoryFieldAndLoginUser method)
 	 @Test
 	 public void registerWithMandatoryFields () {
-		 hp.navigateToRegisterPage();
-		 rp.registerMandatroyFields(td.firstname, td.lastname, td.validEmail, td.validPassword, td.validPassword);
-		 rp.verifyThatUserIsRegister();
+		 hp.navigateToRegisterPage();			// user  navigated to register page
+		 rp.registerMandatroyFieldsAndLoginUser(td.firstname, td.lastname, td.validEmail, td.validPassword, td.validPassword);	// user popualted only mandatory fields and verify that user is successfully register and login
 	 }
+	 
+	 
+	//user populate all fields and not successfully registered because password and confirm password fields do not match
 	 @Test
 	 public void registerAllFieldsAndDifferentPasswordAndConfrimPassword () {
-		 hp.navigateToRegisterPage();
-		 rp.registerWithFullFields(td.firstname, td.lastname, td.inValidEmail, td.companyName, td.validPassword, td.inValidPassword);
-		 rp.verifyThatUserIsNotRegister();
+		 hp.navigateToRegisterPage(); // user  navigated to register page
+		 rp.registerWithFullFieldsAndLogin(td.firstname, td.lastname, td.inValidEmail, td.companyName, td.validPassword, td.inValidPassword); // user populated all fields
+		 rp.verifyThatUserIsNotRegister(); // verify that user is not successfully registed
 	 }
+	 
+	// user is successful registered with entering a random email and populate others  mandatory fields ( assert is inside in the rp.registerMandatoryFieldWithRandomEmailAndLogin method)
 	 @Test
 	 public void registerWithRandomEmail() {
-		 hp.navigateToRegisterPage();
-		 rp.registerMandatroyFieldsWithRandomEmail(td.firstname, td.lastname, td.validPassword, td.validPassword);
-		 rp.verifyThatUserIsRegister();
+		 hp.navigateToRegisterPage(); // user  navigated to register page
+		 rp.registerMandatroyFieldsWithRandomEmailAndLogin(td.firstname, td.lastname, td.validPassword, td.validPassword); //  user popualted only mandatory fields and email is random , verify that user is successfully register and login
+	 }
+	 
+	// user populated fields and leave mandatory fields empty ,user  it's not successfully registered
+	 @Test
+	 public void registerWithEmptyFields () {
+		 hp.navigateToRegisterPage();	// user  navigated to register page
+		 rp.registerWithFullFieldsAndLogin("", "", "", "", "", "");	//// populated fields and leave mandatory fields empty
+		 rp.verifyThatUserIsNotRegister();	// verify that user is not successfully registed
+		
 	 }
 }

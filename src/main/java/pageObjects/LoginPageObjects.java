@@ -28,6 +28,8 @@ public class LoginPageObjects extends Base{
 	public LoginPageObjects() {
 		PageFactory.initElements(driver, this);
 	}
+	
+	// login method
 	public void loginUser(String email,String password) {
 		emailField.sendKeys(email);
 		passwordField.sendKeys(password);
@@ -35,6 +37,8 @@ public class LoginPageObjects extends Base{
 		
 	}
 	
+	// scroll practice
+	//using Thread sleep to see that Scrolling is working
 	public void scrollToLoginBtn() throws InterruptedException {
 		WebElement element = loginBtn;
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -42,9 +46,13 @@ public class LoginPageObjects extends Base{
 		
 		
 	}
+	
+	// verify that user is login successful
 	public void verifyUserIsLogin() {
 		Assert.assertEquals(driver.getTitle(), td.homepage);
 	}
+	
+	// verify that user  not login
 	public void verifyUserIsNotLogin() {
 		Assert.assertEquals(driver.getTitle(), td.loginpage);
 	}
