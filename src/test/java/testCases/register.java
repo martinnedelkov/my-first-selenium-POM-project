@@ -60,4 +60,12 @@ public class register extends Base {
 		 rp.verifyThatUserIsNotRegister();	// verify that user is not successfully registed
 		
 	 }
+	 //  user is successful registered with entering a random email, random Date Of Birth and populate others  mandatory fields
+	 @Test
+	 public void registerWithRandomEmailAndRandomDateOfBirth() {
+		 hp.navigateToRegisterPage();	// navigate to register page
+		 rp.registerWithRandomEmailRandomDateOfBirth("pece", "randomot", "123456", "123456");	// populated mandatory fields with random email and selec random Date of Birth
+		 rp.verifyThatUserIsRegister();	// verify that user is successfully registed
+	 }
+	 
 }

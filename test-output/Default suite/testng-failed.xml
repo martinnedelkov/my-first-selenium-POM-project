@@ -5,6 +5,7 @@
     <classes>
       <class name="testCases.ShoppingCart">
         <methods>
+          <include name="vezbaodcashot"/>
           <include name="checkIfThePriceChangesAccordingtheDiscountGivenForProducts"/>
           <include name="start"/>
           <include name="end"/>

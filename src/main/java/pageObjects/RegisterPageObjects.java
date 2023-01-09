@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import Base.Base;
@@ -50,6 +51,12 @@ public class RegisterPageObjects extends Base{
 	WebElement loginIcon;
 	@FindBy(xpath = "//a[@href=\"/logout\"]")
 	WebElement logoutIcon;
+	@FindBy(xpath = "//select[@name=\"DateOfBirthDay\"]")
+	WebElement dayOfBirth;
+	@FindBy(xpath = "//select[@name=\"DateOfBirthMonth\"]")
+	WebElement MonthOfBirth;
+	@FindBy(xpath = "//select[@name=\"DateOfBirthYear\"]")
+	WebElement yearOfBirth;
 	
 	public RegisterPageObjects () {
 		PageFactory.initElements(driver, this);
@@ -93,13 +100,54 @@ public class RegisterPageObjects extends Base{
 	
 		
 	}
+	// user should be registered with populate mandatory fields with random email and random date of birth
+	public void registerWithRandomEmailRandomDateOfBirth(String name,String lastname,String password, String confirmpassword) {
+		firstnameField.sendKeys(name);
+		lastnameField.sendKeys(lastname);
+		randomDaYOfBirth();
+		randomMonthOfBirth();
+		randomYearOfBirth();
+		randomEmail();
+		passwordField.sendKeys(password);
+		confirmpasswordField.sendKeys(confirmpassword);
+		registerBtn.click();
+	}
+		
+	
 	// method for random email
 	public void randomEmail() {
 		Random randomEmail = new Random ();
 		int randomInt = randomEmail.nextInt(100);
 		emailField.sendKeys("dimitar"+randomInt+"@test.com");
 	}
-
+	// method for random day of Birth
+	public void randomDaYOfBirth () {
+		dayOfBirth.click();
+		Select s = new Select(dayOfBirth);
+		int randomDate = driver.findElements(By.xpath("//select[@name=\"DateOfBirthDay\"]/option[not(position()=0)]")).size();
+		Random random = new Random ();
+		int index = random.nextInt(randomDate);
+		s.selectByIndex(index);
+		
+		}
+	// method for random Month of Birth
+	public void randomMonthOfBirth () {
+		MonthOfBirth.click();
+		Select s = new Select(MonthOfBirth);
+		int randomMonth = driver.findElements(By.xpath("//select[@name=\"DateOfBirthMonth\"]/option[not(position()=1)]")).size();
+		Random random = new Random ();
+		int index = random.nextInt(randomMonth);
+		s.selectByIndex(index);
+		}
+	// method for random Year of Birth
+	public void randomYearOfBirth () {
+		yearOfBirth.click();
+		Select s = new Select(yearOfBirth);
+		int randomYear = driver.findElements(By.xpath("//select[@name=\"DateOfBirthYear\"]/option[not(position()=1)]")).size();
+		Random random = new Random ();
+		int index = random.nextInt(randomYear);
+		s.selectByIndex(index);
+		}
 	// user should be registered with only mandatory fields and email should be random
 	//check if the user is logged in automatically, if not logged in automatically then log them in
 	public void registerMandatroyFieldsWithRandomEmailAndLogin (String name,String lastname,String password, String confirmpassword)  {

@@ -75,4 +75,16 @@ public class PDP extends Base {
 			pdp.shareOnFB();	// click to share product on FB
 			cm.verifyThatNewWindowTabIsOpenAndCloseIt("facebook", "asus");// verify that new facebook window tab will be open and close it and verify then that user is on  pdp page
 		}
+		//User Can Rent A product with selecting From Start Date to End Date 
+		@Test
+		public void rentAProduct() throws InterruptedException {
+			hp.naviagteJewelry();	// navigate to Jewelry
+			plp.navigateToElegantGemstoneNecklacePDP();	// navigate to Elegant Gemsstone Necklace PDP
+			pdp.rentAProductStartDateAndEndDate();	// select start date to rent and select end date to rent
+			cm.addToCardFromPDP();	// add to cart product
+			hp.navigateToShoppingCart();	// navigate to shopping cart
+			pdp.verifyThatProductForRentIsAvailableFor3days();	// verify that price of product is equals with price for rent for 3 days
+			cm.verifyThatPageContainsText("Start date: 4/17/2024. End date: 4/20/2024."); //verify that start date rent and end date rent is displayed
+		}
+		
 }

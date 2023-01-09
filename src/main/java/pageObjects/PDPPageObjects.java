@@ -93,14 +93,11 @@ public class PDPPageObjects extends Base {
 		WebElement startDateForRentAElegantGemstoneJewelry;
 		@FindBy(xpath = "//input[@id=\"rental_end_date_40\"]")
 		WebElement endDateOFRentAElegantGemstoneJewelry;
-		@FindBy(xpath = "//a[@class=\"ui-datepicker-next ui-corner-all\"]")
+		@FindBy(xpath = "//a[@title=\"Next\"]")
 		WebElement monthNextBtnCalender;
-		@FindBy(xpath = "//a[@class=\"ui-state-default\"]")
-		WebElement DateInCalendar;
-		@FindBy (xpath = "//span[@class=\"ui-datepicker-year\"]")
-		WebElement yearInCalendar;
-		@FindBy(xpath = "//span[@class=\"ui-datepicker-month\"]")
-		WebElement monthInCalendar;
+		@FindBy(xpath = "//span[@class=\"product-subtotal\"]")
+		WebElement totalPriceInShoppingCart;
+		
 		
 		@FindBy(xpath = "//a[@class=\"button-2 download-sample-button\"]")
 		WebElement downloadSampleBTN;
@@ -197,8 +194,42 @@ public class PDPPageObjects extends Base {
 			    	driver.switchTo().window(browserTabs.get(0));
 			    	Assert.assertEquals(driver.getCurrentUrl(), "https://demo.nopcommerce.com/asus-n551jk-xo076h-laptop");
 			    }
+		// rent a Product Start Date To Rent To End Date To Rent
+	public void rentAProductStartDateAndEndDate () {
+		String wantedYearStart ="2024";
+		String wantedMonthStart = "April";
+		String wantedDayStart = "17";
 		
+		String wantedYearEnd ="2024";
+		String wantedMonthEnd = "April";
+		String wantedDayEnd = "20";
+		
+		 startDateForRentAElegantGemstoneJewelry.click();
+		do {
+			monthNextBtnCalender.click();
+		}
+		while (!driver.getPageSource().contains(wantedYearStart) || !driver.getPageSource().contains(wantedMonthStart));
+		driver.findElement(By.xpath("//a[contains(text(),'" + wantedDayStart+ "')]")).click();
+		
+		
+		 endDateOFRentAElegantGemstoneJewelry.click();
+		do {
+			monthNextBtnCalender.click();
+		}
+		while (!driver.getPageSource().contains(wantedYearEnd) || !driver.getPageSource().contains(wantedMonthEnd));
+		driver.findElement(By.xpath("//a[contains(text(),'" + wantedDayEnd+ "')]")).click();
 	
-	
+	}
+	//verify that start date rent and end date rent is displayed
+	 public void verifyThatProductForRentIsAvailableFor3days () {
+		 int RentPerDay = 3000;
+		 int daysOfRent = 3;
+		 int rent = RentPerDay * daysOfRent;
+		 String totalPriceInShoppingCart1 = totalPriceInShoppingCart.getText();
+		 totalPriceInShoppingCart1 = totalPriceInShoppingCart1.replaceAll("[$-,-.]", "");
+		 int totalPrice = Integer.parseInt(totalPriceInShoppingCart1);
+		 
+		 Assert.assertEquals(rent, totalPrice);
+		 }
 	
 }
